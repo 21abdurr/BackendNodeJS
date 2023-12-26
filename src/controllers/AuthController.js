@@ -62,7 +62,7 @@ class AuthController {
       if (!user) { throw { code: 404, message: "User not found" } }
 
 
-      const isPasswordValid = await bcrypt.compare(
+      const isPasswordValid = await bcrypt.compareSync(
         req.body.password, user.password
       )
       if (!isPasswordValid) { throw { code: 404, message: "Invalid Password" } }
@@ -70,7 +70,7 @@ class AuthController {
       return res.status(200).json({
         status: true,
         message: "User logged in successfully",
-        user: user,
+        fullname: user.fullname
       })
 
     } catch (error) {
